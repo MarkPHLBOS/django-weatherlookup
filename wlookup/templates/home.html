@@ -2,6 +2,31 @@
 
 {% block content %}
 
-<h1>Hello World!</h1>
+{% if zipcode %}
+	{{ zipcode }}
+{% endif %}
+
+
+{% if api %}
+	{% if api == "Error..." %}
+		There was an error, try reloading the page.
+	{% else %}
+
+
+
+		<div class="p-5 mb-4 bg-light rounded-3">
+			<div class="container-fluid py-5 {{ AQI_category_color }}">
+				<h1 class="display-5 fw-bold">Air Quality Status: {{ api.0.ReportingArea }}, {{ api.0.StateCode }}</h1></br>
+
+				<p class="col-md-8 fs-4">The current air quality in {{ api.0.ReportingArea }} is "{{ api.0.Category.Name }}" today.</p>
+
+				<p class="col-md-8 fs-4">{{ AQI_category_description }}</p>
+
+				<p class="col-md-8 fs-4">The specific Air Quality Index in {{ api.0.ReportingArea }} right now is {{ api.0.AQI }}. </p>
+
+			</div>
+		</div>		
+	{% endif %}
+{% endif %}
 
 {% endblock %}
